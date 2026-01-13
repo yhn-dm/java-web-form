@@ -4,7 +4,7 @@ Ce projet est une application Spring Boot simple qui permet de gérer une boutiq
 
 L’objectif est de mettre en place une application complète (backend + frontend) autour d’une seule entité : **Produit**.
 
----
+
 
 ## Technologies utilisées
 
@@ -16,7 +16,7 @@ L’objectif est de mettre en place une application complète (backend + fronten
 * MySQL
 * HTML / Tailwind CSS
 
----
+
 
 ## Configuration du projet
 
@@ -29,7 +29,7 @@ Paramètres de connexion (dans `application.properties`) :
 * Utilisateur : `root`
 * Mot de passe : à définir selon votre configuration locale
 
----
+
 
 ## Modèle de données
 
@@ -48,7 +48,7 @@ Champs principaux :
 
 La date de réception est automatiquement initialisée lors de l’insertion si elle n’est pas fournie.
 
----
+
 
 ## Architecture
 
@@ -60,7 +60,6 @@ Le projet suit une architecture classique Spring Boot :
 * **Controller** : `ProduitController` (gestion des routes web)
 * **Templates Thymeleaf** : interface utilisateur
 
----
 
 ## Fonctionnalités
 
@@ -91,7 +90,6 @@ Le projet suit une architecture classique Spring Boot :
 * Génération d’un fichier CSV téléchargeable
 * Compatible avec Excel / LibreOffice
 
----
 
 ## Templates Thymeleaf
 
@@ -108,7 +106,7 @@ Le projet suit une architecture classique Spring Boot :
 * Champs correspondant au modèle Produit
 * Validation des champs obligatoires
 
----
+
 
 ## Lancement du projet
 
