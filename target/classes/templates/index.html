@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Boutique de Thés</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tea: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-tea-50 text-tea-800 min-h-screen">
+
+<div class="max-w-6xl mx-auto py-12 px-6">
+
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+        <div>
+            <p class="text-tea-400 text-xs font-medium tracking-widest uppercase mb-2">Gestion</p>
+            <h1 class="text-3xl font-semibold text-tea-800 tracking-tight mb-1">
+                Collection de Thés
+            </h1>
+            <p class="text-tea-500 text-sm">
+                Gérez votre sélection de thés disponibles en boutique.
+            </p>
+        </div>
+
+        <a href="/nouveau"
+           class="inline-flex items-center gap-2 rounded-lg bg-tea-800 px-5 py-2.5 text-sm font-medium text-white hover:bg-tea-700 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            Ajouter un thé
+        </a>
+    </div>
+
+    <div class="bg-white rounded-xl border border-tea-200 shadow-sm overflow-hidden">
+
+        <div class="px-6 py-4 border-b border-tea-100 flex items-center justify-between">
+            <h2 class="text-sm font-medium text-tea-700">Inventaire</h2>
+
+            <div class="flex items-center gap-3">
+                <!-- Export CSV -->
+                <a href="/export/csv"
+                   class="inline-flex items-center gap-2 rounded-lg border border-tea-200
+                  px-3 py-2 text-xs font-medium text-tea-600
+                  hover:bg-tea-100 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 10v6m0 0l-3-3m3 3l3-3M4 4h16"/>
+                    </svg>
+                    Export CSV
+                </a>
+
+                <div class="relative">
+                    <input type="text" placeholder="Rechercher..."
+                           class="pl-9 pr-4 py-2 text-sm border border-tea-200 rounded-lg
+                          bg-tea-50 focus:outline-none focus:ring-2
+                          focus:ring-tea-300 focus:border-transparent transition w-56">
+                    <svg class="w-4 h-4 text-tea-400 absolute left-3 top-1/2 -translate-y-1/2"
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="relative w-full overflow-auto">
+            <table class="w-full text-sm">
+
+                <thead>
+                <tr class="bg-tea-50 text-left border-b border-tea-100">
+                    <th class="h-12 px-6 text-xs font-medium uppercase tracking-wider text-tea-500">
+                        Nom
+                    </th>
+                    <th class="h-12 px-6 text-xs font-medium uppercase tracking-wider text-tea-500">
+                        Type
+                    </th>
+                    <th class="h-12 px-6 text-xs font-medium uppercase tracking-wider text-tea-500">
+                        Origine
+                    </th>
+                    <th class="h-12 px-6 text-xs font-medium uppercase tracking-wider text-tea-500">
+                        Prix
+                    </th>
+                    <th class="h-12 px-6 text-xs font-medium uppercase tracking-wider text-tea-500">
+                        Description
+                    </th>
+                    <th class="h-12 px-6 text-xs font-medium uppercase tracking-wider text-tea-500">
+                        Réception
+                    </th>
+                    <th class="h-12 px-6 text-xs font-medium uppercase tracking-wider text-tea-500">
+                        Stock
+                    </th>
+
+                    <th class="h-12 px-6 text-right text-xs font-medium uppercase tracking-wider text-tea-500">
+                        Actions
+                    </th>
+                </tr>
+                </thead>
+
+
+                <tbody class="divide-y divide-tea-100">
+
+                <tr th:each="p : ${produits}" class="hover:bg-tea-50/50 transition">
+
+                    <td class="px-6 py-4">
+                        <span class="font-medium text-tea-800" th:text="${p.nom}"></span>
+                    </td>
+
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-tea-100 text-tea-600" th:text="${p.typeThe}"></span>
+                    </td>
+
+                    <td class="px-6 py-4 text-tea-600" th:text="${p.origine}"></td>
+
+                    <td class="px-6 py-4 text-tea-800" th:text="${p.prix + ' €'}"></td>
+
+                    <td class="px-6 py-4 text-tea-600" th:text="${p.description}"></td>
+
+                    <td class="px-6 py-4 text-tea-600"
+                        th:text="${#temporals.format(p.dateReception, 'dd/MM/yyyy')}">
+                    </td>
+
+                    <td class="px-6 py-4 text-tea-600" th:text="${p.quantiteStock}"></td>
+
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <a th:href="@{/modifier/{id}(id=${p.id})}"
+                               class="inline-flex h-8 items-center justify-center rounded-md border border-tea-200 px-3 text-xs font-medium text-tea-600 transition hover:bg-tea-100">
+                                Modifier
+                            </a>
+
+                            <a th:href="@{/supprimer/{id}(id=${p.id})}"
+                               onclick="return confirm('Supprimer ce produit ?')"
+                               class="inline-flex h-8 items-center justify-center rounded-md border border-red-200 px-3 text-xs font-medium text-red-600 transition hover:bg-red-50">
+                                Supprimer
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${#lists.isEmpty(produits)}"
+             class="p-12 text-center">
+            <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-tea-100 flex items-center justify-center">
+                <svg class="w-6 h-6 text-tea-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                </svg>
+            </div>
+            <p class="text-tea-500 text-sm mb-4">Aucun produit enregistré pour le moment.</p>
+            <a href="/nouveau" class="inline-flex items-center gap-2 rounded-lg bg-tea-800 px-4 py-2 text-sm font-medium text-white hover:bg-tea-700 transition">
+                Ajouter un thé
+            </a>
+        </div>
+
+        <div class="px-6 py-4 border-t border-tea-100 flex items-center justify-between">
+            <p class="text-xs text-tea-500">
+                Page <span th:text="${currentPage + 1}">1</span>
+                sur <span th:text="${totalPages}">1</span>
+            </p>
+
+            <div class="flex items-center gap-1">
+
+                <a th:if="${currentPage > 0}"
+                   th:href="@{/(page=${currentPage - 1}, size=${size})}"
+                   class="h-8 w-8 rounded-md border border-tea-200 text-tea-500
+                  hover:bg-tea-100 transition flex items-center justify-center">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </a>
+
+                <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:href="@{/(page=${i}, size=${size})}"
+               th:text="${i + 1}"
+               th:classappend="${i == currentPage}
+                    ? 'bg-tea-800 text-white'
+                    : 'border border-tea-200 text-tea-600 hover:bg-tea-100'"
+               class="h-8 w-8 rounded-md text-xs font-medium flex items-center justify-center transition">
+            </a>
+        </span>
+
+                <a th:if="${currentPage < totalPages - 1}"
+                   th:href="@{/(page=${currentPage + 1}, size=${size})}"
+                   class="h-8 w-8 rounded-md border border-tea-200 text-tea-500
+                  hover:bg-tea-100 transition flex items-center justify-center">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>
